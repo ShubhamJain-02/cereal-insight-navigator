@@ -5,6 +5,7 @@ import { CerealAnalysisSection } from "@/components/CerealAnalysisSection";
 import { MLAnalysisSection } from "@/components/MLAnalysisSection";
 import { StatsOverview } from "@/components/StatsOverview";
 import { ComparisonMode } from "@/components/ComparisonMode";
+import CountryMap from "@/components/CountryMap";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, BarChart3, GitCompare, Zap } from "lucide-react";
 
@@ -55,6 +56,14 @@ const Index = () => {
         <CountrySelector 
           selectedCountry={selectedCountry} 
           onCountryChange={setSelectedCountry} 
+        />
+      </div>
+
+      {/* Interactive Map */}
+      <div className="animate-fade-in" style={{ animationDelay: '0.35s' }}>
+        <CountryMap 
+          selectedCountry={selectedCountry} 
+          onCountrySelect={setSelectedCountry} 
         />
       </div>
 
