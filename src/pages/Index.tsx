@@ -5,6 +5,7 @@ import { CerealAnalysisSection } from "@/components/CerealAnalysisSection";
 import { MLAnalysisSection } from "@/components/MLAnalysisSection";
 import { StatsOverview } from "@/components/StatsOverview";
 import { ComparisonMode } from "@/components/ComparisonMode";
+import { CerealComparison } from "@/components/CerealComparison";
 import CountryMap from "@/components/CountryMap";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, BarChart3, GitCompare, Zap } from "lucide-react";
@@ -137,6 +138,11 @@ const Index = () => {
             cerealId="cereal2"
             country={selectedCountry} 
           />
+        </section>
+
+        {/* Cereal Comparison Section */}
+        <section className="animate-fade-in" style={{ animationDelay: '0.65s' }}>
+          <CerealComparison country={selectedCountry} />
         </section>
 
         {/* ML Analysis Section */}

@@ -4,19 +4,50 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { MapPin, Globe, Zap } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { MapPin, Globe, Zap, TrendingUp, Users, BarChart3 } from 'lucide-react';
 
 interface CountryMapProps {
   selectedCountry: string;
   onCountrySelect: (country: string) => void;
 }
 
-const countryCoordinates = {
-  UK: [-3.435973, 55.378051],
-  Australia: [133.7751, -25.2744],
-  Poland: [19.1343, 51.9194],
-  France: [2.2137, 46.2276]
+const countryData = {
+  UK: {
+    coordinates: [-3.435973, 55.378051],
+    marketSize: 85,
+    growth: 12,
+    satisfaction: 78,
+    demographic: 'Millennials',
+    color: '#3b82f6'
+  },
+  Australia: {
+    coordinates: [133.7751, -25.2744],
+    marketSize: 92,
+    growth: 8,
+    satisfaction: 82,
+    demographic: 'Gen Z',
+    color: '#10b981'
+  },
+  Poland: {
+    coordinates: [19.1343, 51.9194],
+    marketSize: 67,
+    growth: 15,
+    satisfaction: 71,
+    demographic: 'Gen X',
+    color: '#f59e0b'
+  },
+  France: {
+    coordinates: [2.2137, 46.2276],
+    marketSize: 79,
+    growth: 6,
+    satisfaction: 85,
+    demographic: 'Baby Boomers',
+    color: '#ef4444'
+  }
 } as const;
+
+type MetricType = 'marketSize' | 'growth' | 'satisfaction';
 
 const CountryMap: React.FC<CountryMapProps> = ({ selectedCountry, onCountrySelect }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -24,6 +55,7 @@ const CountryMap: React.FC<CountryMapProps> = ({ selectedCountry, onCountrySelec
   const [mapboxToken, setMapboxToken] = useState('');
   const [showTokenInput, setShowTokenInput] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedMetric, setSelectedMetric] = useState<MetricType>('marketSize');
 
   const initializeMap = () => {
     if (!mapContainer.current || !mapboxToken) return;
@@ -58,32 +90,53 @@ const CountryMap: React.FC<CountryMapProps> = ({ selectedCountry, onCountrySelec
           'horizon-blend': 0.3,
         });
 
-        // Add markers for each country
-        Object.entries(countryCoordinates).forEach(([country, coordinates]) => {
+        // Add markers for each country with comparative data
+        Object.entries(countryData).forEach(([country, data]) => {
+          const metricValue = data[selectedMetric];
+          const normalizedSize = 0.8 + (metricValue / 100) * 0.8; // Scale between 0.8 and 1.6
+          
           const marker = new mapboxgl.Marker({
-            color: country === selectedCountry ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
-            scale: country === selectedCountry ? 1.2 : 0.8,
+            color: country === selectedCountry ? data.color : `${data.color}80`,
+            scale: country === selectedCountry ? normalizedSize * 1.3 : normalizedSize,
           })
-            .setLngLat(coordinates as [number, number])
+            .setLngLat(data.coordinates as [number, number])
             .addTo(map.current!);
 
           marker.getElement().addEventListener('click', () => {
             onCountrySelect(country);
             // Fly to selected country
             map.current?.flyTo({
-              center: coordinates as [number, number],
+              center: data.coordinates as [number, number],
               zoom: 4,
               pitch: 45,
               duration: 2000
             });
           });
 
-          // Add popup with country info
+          // Add detailed popup with comparative metrics
           const popup = new mapboxgl.Popup({ offset: 25 })
             .setHTML(`
-              <div class="p-2 text-center">
-                <h3 class="font-bold text-foreground">${country}</h3>
-                <p class="text-sm text-muted-foreground">Click to analyze</p>
+              <div class="p-4 space-y-2 min-w-48">
+                <h3 class="font-bold text-lg text-foreground">${country}</h3>
+                <div class="space-y-1">
+                  <div class="flex justify-between">
+                    <span class="text-sm text-muted-foreground">Market Size:</span>
+                    <span class="text-sm font-medium">${data.marketSize}%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-sm text-muted-foreground">Growth Rate:</span>
+                    <span class="text-sm font-medium text-green-600">+${data.growth}%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-sm text-muted-foreground">Satisfaction:</span>
+                    <span class="text-sm font-medium">${data.satisfaction}%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-sm text-muted-foreground">Key Demo:</span>
+                    <span class="text-sm font-medium">${data.demographic}</span>
+                  </div>
+                </div>
+                <p class="text-xs text-muted-foreground mt-2">Click to analyze</p>
               </div>
             `);
           
@@ -138,20 +191,23 @@ const CountryMap: React.FC<CountryMapProps> = ({ selectedCountry, onCountrySelec
     const markers = document.querySelectorAll('.mapboxgl-marker');
     markers.forEach(marker => marker.remove());
 
-    // Re-add markers with updated styling
-    Object.entries(countryCoordinates).forEach(([country, coordinates]) => {
+    // Re-add markers with updated styling and metrics
+    Object.entries(countryData).forEach(([country, data]) => {
+      const metricValue = data[selectedMetric];
+      const normalizedSize = 0.8 + (metricValue / 100) * 0.8;
+      
       const marker = new mapboxgl.Marker({
-        color: country === selectedCountry ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
-        scale: country === selectedCountry ? 1.2 : 0.8,
+        color: country === selectedCountry ? data.color : `${data.color}80`,
+        scale: country === selectedCountry ? normalizedSize * 1.3 : normalizedSize,
       })
-        .setLngLat(coordinates as [number, number])
+        .setLngLat(data.coordinates as [number, number])
         .addTo(map.current!);
 
       marker.getElement().addEventListener('click', () => {
         onCountrySelect(country);
       });
     });
-  }, [selectedCountry]);
+  }, [selectedCountry, selectedMetric]);
 
   if (showTokenInput) {
     return (
@@ -205,25 +261,38 @@ const CountryMap: React.FC<CountryMapProps> = ({ selectedCountry, onCountrySelec
   return (
     <Card className="overflow-hidden bg-gradient-to-br from-card/80 to-muted/20 border-primary/20">
       <div className="p-6 border-b border-border/50">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-full bg-primary/20">
-              <MapPin className="w-6 h-6 text-primary" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-full bg-primary/20">
+                <BarChart3 className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">Comparative Analysis Map</h3>
+                <p className="text-sm text-muted-foreground">Visual comparison across markets</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-xl font-bold">Global Analytics Map</h3>
-              <p className="text-sm text-muted-foreground">Click countries to analyze markets</p>
+            
+            <div className="flex items-center gap-3">
+              <Select value={selectedMetric} onValueChange={(value: MetricType) => setSelectedMetric(value)}>
+                <SelectTrigger className="w-40">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="marketSize">Market Size</SelectItem>
+                  <SelectItem value="growth">Growth Rate</SelectItem>
+                  <SelectItem value="satisfaction">Satisfaction</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowTokenInput(true)}
+              >
+                Reset Map
+              </Button>
             </div>
           </div>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowTokenInput(true)}
-          >
-            Reset Map
-          </Button>
-        </div>
       </div>
       
       <div className="relative">
@@ -240,10 +309,33 @@ const CountryMap: React.FC<CountryMapProps> = ({ selectedCountry, onCountrySelec
           </div>
         )}
         
-        <div className="absolute bottom-4 left-4 bg-background/90 backdrop-blur-sm rounded-lg p-3 border border-border/50">
+        <div className="absolute bottom-4 left-4 bg-background/90 backdrop-blur-sm rounded-lg p-4 border border-border/50 space-y-2">
           <div className="flex items-center gap-2 text-sm">
-            <div className="w-3 h-3 rounded-full bg-primary animate-pulse"></div>
+            <div className="w-3 h-3 rounded-full animate-pulse" style={{backgroundColor: countryData[selectedCountry as keyof typeof countryData]?.color}}></div>
             <span className="font-medium">Selected: {selectedCountry}</span>
+          </div>
+          <div className="text-xs text-muted-foreground space-y-1">
+            <div>Market Size: {countryData[selectedCountry as keyof typeof countryData]?.marketSize}%</div>
+            <div>Growth: +{countryData[selectedCountry as keyof typeof countryData]?.growth}%</div>
+            <div>Satisfaction: {countryData[selectedCountry as keyof typeof countryData]?.satisfaction}%</div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-4 right-4 bg-background/90 backdrop-blur-sm rounded-lg p-3 border border-border/50">
+          <div className="text-xs text-muted-foreground space-y-1">
+            <div className="font-medium mb-2">Legend ({selectedMetric})</div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-chart-1"></div>
+              <span>High (80-100%)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-chart-2"></div>
+              <span>Medium (60-80%)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-chart-3"></div>
+              <span>Low (0-60%)</span>
+            </div>
           </div>
         </div>
       </div>
