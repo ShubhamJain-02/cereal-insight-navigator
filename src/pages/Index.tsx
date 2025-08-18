@@ -16,75 +16,101 @@ const Index = () => {
   const [isRealTime, setIsRealTime] = useState(false);
 
   return (
-    <div className="min-h-screen p-6 space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-6">
-        <div className="flex items-center justify-center gap-3 mb-4 animate-bounce-in">
-          <div className="p-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse-glow">
-            <TrendingUp className="w-10 h-10 text-primary" />
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <header className="relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5">
+        <div className="container mx-auto px-6 py-16">
+          <div className="text-center space-y-8 max-w-5xl mx-auto">
+            {/* Main Title */}
+            <div className="animate-fade-in">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="p-5 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse-glow shadow-elegant">
+                  <TrendingUp className="w-12 h-12 text-primary" />
+                </div>
+                <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-primary via-accent to-chart-2 bg-clip-text text-transparent">
+                  Cereal Analytics
+                </h1>
+              </div>
+              <p className="text-2xl font-medium text-primary/80 mb-4">Dashboard</p>
+            </div>
+            
+            {/* Subtitle */}
+            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <p className="text-muted-foreground text-xl max-w-4xl mx-auto leading-relaxed">
+                Comprehensive market analysis and consumer insights across global markets with real-time analytics and predictive intelligence
+              </p>
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <Button
+                variant={isRealTime ? "default" : "outline"}
+                onClick={() => setIsRealTime(!isRealTime)}
+                size="lg"
+                className="min-w-48 transition-all duration-300 hover:scale-105"
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                {isRealTime ? "Real-time ON" : "Enable Real-time"}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setShowComparison(!showComparison)}
+                size="lg"
+                className="min-w-48 transition-all duration-300 hover:scale-105"
+              >
+                <GitCompare className="w-5 h-5 mr-2" />
+                {showComparison ? "Hide Comparison" : "Compare Countries"}
+              </Button>
+            </div>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-chart-2 bg-clip-text text-transparent">
-            Cereal Analytics Dashboard
-          </h1>
         </div>
-        <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-          Comprehensive market analysis and consumer insights across global markets with real-time analytics
-        </p>
         
-        {/* Action Buttons */}
-        <div className="flex items-center justify-center gap-4 mt-6">
-          <Button
-            variant={isRealTime ? "default" : "outline"}
-            onClick={() => setIsRealTime(!isRealTime)}
-            className="animate-fade-in"
-          >
-            <Zap className="w-4 h-4 mr-2" />
-            {isRealTime ? "Real-time ON" : "Enable Real-time"}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => setShowComparison(!showComparison)}
-            className="animate-fade-in"
-          >
-            <GitCompare className="w-4 h-4 mr-2" />
-            {showComparison ? "Hide Comparison" : "Compare Countries"}
-          </Button>
-        </div>
-      </div>
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </header>
 
-      {/* Country Selector */}
-      <div className="flex justify-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
-        <CountrySelector 
-          selectedCountry={selectedCountry} 
-          onCountryChange={setSelectedCountry} 
-        />
-      </div>
+      {/* Main Content */}
+      <main className="container mx-auto px-6 py-12 space-y-16">
+        {/* Controls Section */}
+        <section className="flex flex-col lg:flex-row gap-8 items-start justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="w-full lg:w-auto">
+            <CountrySelector 
+              selectedCountry={selectedCountry} 
+              onCountryChange={setSelectedCountry} 
+            />
+          </div>
+        </section>
 
-      {/* Interactive Map */}
-      <div className="animate-fade-in" style={{ animationDelay: '0.35s' }}>
-        <CountryMap 
-          selectedCountry={selectedCountry} 
-          onCountrySelect={setSelectedCountry} 
-        />
-      </div>
-
-      {/* Stats Overview */}
-      <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-        <StatsOverview country={selectedCountry} />
-      </div>
-
-      {/* Comparison Mode */}
-      {showComparison && (
-        <div className="animate-fade-in">
-          <ComparisonMode 
-            primaryCountry={selectedCountry}
-            onClose={() => setShowComparison(false)}
+        {/* Interactive Map Section */}
+        <section className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">Global Market Overview</h2>
+            <p className="text-muted-foreground">Interactive analysis across different markets</p>
+          </div>
+          <CountryMap 
+            selectedCountry={selectedCountry} 
+            onCountrySelect={setSelectedCountry} 
           />
-        </div>
-      )}
+        </section>
 
-      {/* Dashboard Sections */}
-      <div className="space-y-16">
+        {/* Stats Overview Section */}
+        <section className="animate-fade-in" style={{ animationDelay: '1s' }}>
+          <StatsOverview country={selectedCountry} />
+        </section>
+
+        {/* Comparison Mode */}
+        {showComparison && (
+          <section className="animate-fade-in">
+            <ComparisonMode 
+              primaryCountry={selectedCountry}
+              onClose={() => setShowComparison(false)}
+            />
+          </section>
+        )}
+
+        {/* Dashboard Sections */}
+        <div className="space-y-20">
         {/* Demographics Section */}
         <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.5s' }}>
           <div className="flex items-center justify-between">
@@ -166,7 +192,8 @@ const Index = () => {
           </div>
           <MLAnalysisSection country={selectedCountry} />
         </section>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };
