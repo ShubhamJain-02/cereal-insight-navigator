@@ -28,22 +28,60 @@ const countries = [
   { code: "FR", name: "France", flag: "🇫🇷" },
 ];
 
-const cerealData = {
-  "Crunchy Oats Premium": {
-    taste: 85,
-    nutrition: 78,
-    price: 65,
-    packaging: 82,
-    availability: 90,
-    satisfaction: 87
+const cerealDataByCountry = {
+  UK: {
+    "British Morning Crunch": {
+      taste: 88,
+      nutrition: 82,
+      price: 72,
+      packaging: 85,
+      availability: 92,
+      satisfaction: 89
+    },
+    "Royal Oat Delight": {
+      taste: 83,
+      nutrition: 90,
+      price: 68,
+      packaging: 78,
+      availability: 88,
+      satisfaction: 86
+    },
   },
-  "Healthy Granola Blend": {
-    taste: 79,
-    nutrition: 92,
-    price: 58,
-    packaging: 75,
-    availability: 85,
-    satisfaction: 83
+  AU: {
+    "Aussie Crispy Flakes": {
+      taste: 91,
+      nutrition: 75,
+      price: 80,
+      packaging: 82,
+      availability: 95,
+      satisfaction: 88
+    },
+    "Outback Granola Mix": {
+      taste: 79,
+      nutrition: 94,
+      price: 65,
+      packaging: 76,
+      availability: 87,
+      satisfaction: 84
+    },
+  },
+  FR: {
+    "French Gourmet Muesli": {
+      taste: 94,
+      nutrition: 88,
+      price: 58,
+      packaging: 92,
+      availability: 78,
+      satisfaction: 91
+    },
+    "Provence Honey Crunch": {
+      taste: 86,
+      nutrition: 85,
+      price: 62,
+      packaging: 89,
+      availability: 82,
+      satisfaction: 87
+    },
   },
 };
 
@@ -82,7 +120,10 @@ export const PreferenceForm = ({ onRecommendation }: PreferenceFormProps) => {
   });
 
   const calculateMatch = (userPrefs: FormValues) => {
-    const cereals = Object.entries(cerealData);
+    const countryData = cerealDataByCountry[userPrefs.country as keyof typeof cerealDataByCountry];
+    if (!countryData) return null;
+    
+    const cereals = Object.entries(countryData);
     const results = cereals.map(([name, cereal]) => {
       let totalScore = 0;
       let maxPossibleScore = 0;
@@ -134,7 +175,9 @@ export const PreferenceForm = ({ onRecommendation }: PreferenceFormProps) => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     const recommendation = calculateMatch(data);
-    onRecommendation(recommendation);
+    if (recommendation) {
+      onRecommendation(recommendation);
+    }
     
     setIsSubmitting(false);
   };
