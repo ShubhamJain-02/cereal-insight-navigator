@@ -3,156 +3,142 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { FlipCard } from "@/components/FlipCard";
 import { Badge } from "@/components/ui/badge";
 
-const feedbackData = {
+const wordFrequencyData = {
   cereal1: {
     UK: {
       positive: [
-        { month: 'Jan', count: 450 },
-        { month: 'Feb', count: 520 },
-        { month: 'Mar', count: 480 },
-        { month: 'Apr', count: 600 },
-        { month: 'May', count: 650 },
-        { month: 'Jun', count: 720 }
+        { word: 'delicious', count: 120 },
+        { word: 'crunchy', count: 95 },
+        { word: 'healthy', count: 90 },
+        { word: 'tasty', count: 85 },
+        { word: 'fresh', count: 80 }
       ],
       negative: [
-        { month: 'Jan', count: 120 },
-        { month: 'Feb', count: 100 },
-        { month: 'Mar', count: 150 },
-        { month: 'Apr', count: 110 },
-        { month: 'May', count: 90 },
-        { month: 'Jun', count: 85 }
+        { word: 'bland', count: 60 },
+        { word: 'stale', count: 45 },
+        { word: 'soggy', count: 40 },
+        { word: 'expensive', count: 35 },
+        { word: 'artificial', count: 30 }
       ]
     },
     AU: {
       positive: [
-        { month: 'Jan', count: 380 },
-        { month: 'Feb', count: 420 },
-        { month: 'Mar', count: 450 },
-        { month: 'Apr', count: 500 },
-        { month: 'May', count: 540 },
-        { month: 'Jun', count: 580 }
+        { word: 'crunchy', count: 100 },
+        { word: 'nutritious', count: 85 },
+        { word: 'affordable', count: 75 },
+        { word: 'tasty', count: 70 },
+        { word: 'natural', count: 65 }
       ],
       negative: [
-        { month: 'Jan', count: 95 },
-        { month: 'Feb', count: 85 },
-        { month: 'Mar', count: 100 },
-        { month: 'Apr', count: 75 },
-        { month: 'May', count: 65 },
-        { month: 'Jun', count: 60 }
+        { word: 'stale', count: 50 },
+        { word: 'dry', count: 45 },
+        { word: 'hard', count: 40 },
+        { word: 'boring', count: 30 },
+        { word: 'unhealthy', count: 25 }
       ]
     },
     PL: {
       positive: [
-        { month: 'Jan', count: 250 },
-        { month: 'Feb', count: 280 },
-        { month: 'Mar', count: 320 },
-        { month: 'Apr', count: 350 },
-        { month: 'May', count: 380 },
-        { month: 'Jun', count: 400 }
+        { word: 'smaczne', count: 95 },
+        { word: 'chrupiące', count: 80 },
+        { word: 'zdrowe', count: 70 },
+        { word: 'świeże', count: 65 },
+        { word: 'dobrze', count: 60 }
       ],
       negative: [
-        { month: 'Jan', count: 80 },
-        { month: 'Feb', count: 70 },
-        { month: 'Mar', count: 85 },
-        { month: 'Apr', count: 60 },
-        { month: 'May', count: 55 },
-        { month: 'Jun', count: 50 }
+        { word: 'nudne', count: 40 },
+        { word: 'stare', count: 35 },
+        { word: 'drogi', count: 30 },
+        { word: 'zbyt twarde', count: 25 },
+        { word: 'słabe', count: 20 }
       ]
     },
     FR: {
       positive: [
-        { month: 'Jan', count: 400 },
-        { month: 'Feb', count: 450 },
-        { month: 'Mar', count: 480 },
-        { month: 'Apr', count: 520 },
-        { month: 'May', count: 580 },
-        { month: 'Jun', count: 620 }
+        { word: 'délicieux', count: 110 },
+        { word: 'croquant', count: 95 },
+        { word: 'sain', count: 90 },
+        { word: 'frais', count: 80 },
+        { word: 'bon goût', count: 75 }
       ],
       negative: [
-        { month: 'Jan', count: 110 },
-        { month: 'Feb', count: 95 },
-        { month: 'Mar', count: 120 },
-        { month: 'Apr', count: 85 },
-        { month: 'May', count: 75 },
-        { month: 'Jun', count: 70 }
+        { word: 'fade', count: 55 },
+        { word: 'cher', count: 50 },
+        { word: 'mou', count: 40 },
+        { word: 'artificiel', count: 35 },
+        { word: 'sec', count: 30 }
       ]
     }
   },
+
   cereal2: {
     UK: {
       positive: [
-        { month: 'Jan', count: 320 },
-        { month: 'Feb', count: 380 },
-        { month: 'Mar', count: 420 },
-        { month: 'Apr', count: 480 },
-        { month: 'May', count: 520 },
-        { month: 'Jun', count: 580 }
+        { word: 'nutritious', count: 100 },
+        { word: 'yummy', count: 90 },
+        { word: 'natural', count: 85 },
+        { word: 'crunchy', count: 80 },
+        { word: 'satisfying', count: 75 }
       ],
       negative: [
-        { month: 'Jan', count: 180 },
-        { month: 'Feb', count: 160 },
-        { month: 'Mar', count: 140 },
-        { month: 'Apr', count: 120 },
-        { month: 'May', count: 100 },
-        { month: 'Jun', count: 90 }
+        { word: 'dry', count: 55 },
+        { word: 'flavorless', count: 50 },
+        { word: 'bitter', count: 40 },
+        { word: 'unpleasant', count: 30 },
+        { word: 'fake', count: 25 }
       ]
     },
     AU: {
       positive: [
-        { month: 'Jan', count: 280 },
-        { month: 'Feb', count: 320 },
-        { month: 'Mar', count: 360 },
-        { month: 'Apr', count: 400 },
-        { month: 'May', count: 440 },
-        { month: 'Jun', count: 480 }
+        { word: 'organic', count: 95 },
+        { word: 'flavorful', count: 85 },
+        { word: 'wholesome', count: 80 },
+        { word: 'crisp', count: 75 },
+        { word: 'energy', count: 70 }
       ],
       negative: [
-        { month: 'Jan', count: 150 },
-        { month: 'Feb', count: 130 },
-        { month: 'Mar', count: 120 },
-        { month: 'Apr', count: 100 },
-        { month: 'May', count: 85 },
-        { month: 'Jun', count: 75 }
+        { word: 'plain', count: 50 },
+        { word: 'tough', count: 45 },
+        { word: 'stale', count: 40 },
+        { word: 'noisy', count: 35 },
+        { word: 'pricey', count: 30 }
       ]
     },
     PL: {
       positive: [
-        { month: 'Jan', count: 200 },
-        { month: 'Feb', count: 240 },
-        { month: 'Mar', count: 280 },
-        { month: 'Apr', count: 320 },
-        { month: 'May', count: 360 },
-        { month: 'Jun', count: 400 }
+        { word: 'naturalne', count: 90 },
+        { word: 'pyszne', count: 85 },
+        { word: 'chrupkie', count: 80 },
+        { word: 'odżywcze', count: 75 },
+        { word: 'smaczne', count: 70 }
       ],
       negative: [
-        { month: 'Jan', count: 120 },
-        { month: 'Feb', count: 110 },
-        { month: 'Mar', count: 100 },
-        { month: 'Apr', count: 85 },
-        { month: 'May', count: 70 },
-        { month: 'Jun', count: 60 }
+        { word: 'mdłe', count: 45 },
+        { word: 'suche', count: 40 },
+        { word: 'gorzkie', count: 35 },
+        { word: 'twarde', count: 30 },
+        { word: 'drogie', count: 25 }
       ]
     },
     FR: {
       positive: [
-        { month: 'Jan', count: 300 },
-        { month: 'Feb', count: 340 },
-        { month: 'Mar', count: 380 },
-        { month: 'Apr', count: 420 },
-        { month: 'May', count: 460 },
-        { month: 'Jun', count: 500 }
+        { word: 'sain', count: 95 },
+        { word: 'croquant', count: 85 },
+        { word: 'délicieux', count: 80 },
+        { word: 'naturel', count: 75 },
+        { word: 'nourrissant', count: 70 }
       ],
       negative: [
-        { month: 'Jan', count: 140 },
-        { month: 'Feb', count: 125 },
-        { month: 'Mar', count: 115 },
-        { month: 'Apr', count: 95 },
-        { month: 'May', count: 80 },
-        { month: 'Jun', count: 70 }
+        { word: 'fade', count: 50 },
+        { word: 'dur', count: 45 },
+        { word: 'pas frais', count: 40 },
+        { word: 'trop cher', count: 35 },
+        { word: 'sec', count: 30 }
       ]
     }
   }
 };
+
 
 interface CerealAnalysisSectionProps {
   cerealName: string;
@@ -161,29 +147,37 @@ interface CerealAnalysisSectionProps {
 }
 
 export const CerealAnalysisSection = ({ cerealName, cerealId, country }: CerealAnalysisSectionProps) => {
-  const data = feedbackData[cerealId as keyof typeof feedbackData];
+  const data = wordFrequencyData[cerealId as keyof typeof wordFrequencyData];
   const countryData = data[country as keyof typeof data] || data.UK;
-  
-  const combinedData = countryData.positive.map((pos, index) => ({
-    month: pos.month,
-    positive: pos.count,
-    negative: countryData.negative[index].count
-  }));
 
-  const totalPositive = countryData.positive.reduce((sum, curr) => sum + curr.count, 0);
-  const totalNegative = countryData.negative.reduce((sum, curr) => sum + curr.count, 0);
-  const sentimentScore = ((totalPositive - totalNegative) / (totalPositive + totalNegative) * 100).toFixed(1);
+  const wordData = wordFrequencyData[cerealId as keyof typeof wordFrequencyData];
+  const wordCountryData = wordData[country as keyof typeof wordData] || wordData.UK;
 
-  const cerealInsight = {
-    title: `${cerealName} Performance`,
-    content: `${cerealName} shows strong market performance in ${country} with positive sentiment trending upward. Consumer feedback indicates high satisfaction with taste and quality.`,
-    metrics: [
-      `Sentiment Score: ${sentimentScore}%`,
-      `Total Positive: ${totalPositive.toLocaleString()}`,
-      `Total Negative: ${totalNegative.toLocaleString()}`,
-      `Growth Trend: ${((countryData.positive[5].count - countryData.positive[0].count) / countryData.positive[0].count * 100).toFixed(1)}%`
-    ]
-  };
+  const positive = countryData?.positive ?? [];
+const negative = countryData?.negative ?? [];
+
+const totalPositive = positive.reduce((sum, curr) => sum + (curr?.count ?? 0), 0);
+const totalNegative = negative.reduce((sum, curr) => sum + (curr?.count ?? 0), 0);
+
+const sentimentScore = totalPositive + totalNegative > 0
+  ? (((totalPositive - totalNegative) / (totalPositive + totalNegative)) * 100).toFixed(1)
+  : '0.0';
+
+const growthTrend = (positive.length >= 2 && positive[0].count !== 0)
+  ? (((positive[positive.length - 1].count - positive[0].count) / positive[0].count) * 100).toFixed(1)
+  : '0.0';
+
+const cerealInsight = {
+  title: `${cerealName} Performance`,
+  content: `${cerealName} shows strong market performance in ${country} with positive sentiment trending upward. Consumer feedback indicates high satisfaction with taste and quality.`,
+  metrics: [
+    `Sentiment Score: ${sentimentScore}%`,
+    `Total Positive: ${totalPositive.toLocaleString()}`,
+    `Total Negative: ${totalNegative.toLocaleString()}`,
+    `Growth Trend: ${growthTrend}%`
+  ]
+};
+
 
   return (
     <div className="space-y-6">
@@ -198,57 +192,61 @@ export const CerealAnalysisSection = ({ cerealName, cerealId, country }: CerealA
           </Badge>
         </h3>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Combined Feedback Chart */}
-        <Card className="card-analytics col-span-1 lg:col-span-2">
+        {/* Positive Word Frequency */}
+        <Card className="card-analytics col-span-1 lg:col-span-1">
           <CardHeader>
-            <CardTitle className="text-chart-3">Feedback Trends</CardTitle>
-            <CardDescription>Monthly positive vs negative feedback in {country}</CardDescription>
+            <CardTitle className="text-chart-2">Positive Keywords</CardTitle>
+            <CardDescription>Common positive feedback in {country}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={combinedData}>
+              <BarChart data={wordCountryData.positive}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                <XAxis 
-                  dataKey="month" 
-                  tick={{ fill: 'hsl(var(--muted-foreground))' }}
-                  axisLine={{ stroke: 'hsl(var(--border))' }}
-                />
-                <YAxis 
-                  tick={{ fill: 'hsl(var(--muted-foreground))' }}
-                  axisLine={{ stroke: 'hsl(var(--border))' }}
-                />
-                <Tooltip 
-                  contentStyle={{ 
+                <XAxis dataKey="word" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                <YAxis tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                <Tooltip
+                  contentStyle={{
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
                     color: 'hsl(var(--card-foreground))'
                   }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="positive" 
-                  stroke="hsl(var(--chart-2))" 
-                  strokeWidth={3}
-                  dot={{ fill: 'hsl(var(--chart-2))', strokeWidth: 2, r: 4 }}
-                  name="Positive Feedback"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="negative" 
-                  stroke="hsl(var(--chart-4))" 
-                  strokeWidth={3}
-                  dot={{ fill: 'hsl(var(--chart-4))', strokeWidth: 2, r: 4 }}
-                  name="Negative Feedback"
-                />
-              </LineChart>
+                <Bar dataKey="count" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
+              </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        {/* Insights Flip Card */}
+        {/* Negative Word Frequency */}
+        <Card className="card-analytics col-span-1 lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="text-chart-4">Negative Keywords</CardTitle>
+            <CardDescription>Common negative feedback in {country}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={wordCountryData.negative}>
+                <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+                <XAxis dataKey="word" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                <YAxis tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px',
+                    color: 'hsl(var(--card-foreground))'
+                  }}
+                />
+                <Bar dataKey="count" fill="hsl(var(--chart-4))" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* FlipCard Insight */}
         <div className="col-span-1">
           <FlipCard insight={cerealInsight} />
         </div>

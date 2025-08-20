@@ -1,10 +1,10 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const countries = [
-  { code: "UK", name: "United Kingdom", flag: "🇬🇧" },
-  { code: "AU", name: "Australia", flag: "🇦🇺" },
-  { code: "PL", name: "Poland", flag: "🇵🇱" },
-  { code: "FR", name: "France", flag: "🇫🇷" },
+  { code: "UK", name: "United Kingdom", flag: "https://flagcdn.com/w40/gb.png" },
+  { code: "AU", name: "Australia", flag: "https://flagcdn.com/w40/au.png" },
+  { code: "PL", name: "Poland", flag: "https://flagcdn.com/w40/pl.png" },
+  { code: "FR", name: "France", flag: "https://flagcdn.com/w40/fr.png" },
 ];
 
 interface CountrySelectorProps {
@@ -25,7 +25,7 @@ export const CountrySelector = ({ selectedCountry, onCountryChange }: CountrySel
           <SelectTrigger className="w-full bg-secondary/50 border-border/50">
             <SelectValue>
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{selectedCountryData?.flag}</span>
+                <img src={selectedCountryData.flag} alt={selectedCountryData.name} className="w-5 h-4 object-cover rounded-sm" />
                 <span className="font-medium">{selectedCountryData?.name}</span>
               </div>
             </SelectValue>
@@ -38,7 +38,7 @@ export const CountrySelector = ({ selectedCountry, onCountryChange }: CountrySel
                 className="hover:bg-primary/10 focus:bg-primary/10"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xl">{country.flag}</span>
+                  <img src={country.flag} alt={country.name} className="w-5 h-4 object-cover rounded-sm" />
                   <span>{country.name}</span>
                 </div>
               </SelectItem>
