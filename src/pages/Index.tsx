@@ -6,14 +6,18 @@ import { MLAnalysisSection } from "@/components/MLAnalysisSection";
 import { StatsOverview } from "@/components/StatsOverview";
 import { ComparisonMode } from "@/components/ComparisonMode";
 import { CerealComparison } from "@/components/CerealComparison";
+import { PreferenceForm } from "@/components/PreferenceForm";
+import { RecommendationResult } from "@/components/RecommendationResult";
 import CountryMap from "@/components/CountryMap";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Users, BarChart3, GitCompare, Zap } from "lucide-react";
+import { TrendingUp, Users, BarChart3, GitCompare, Zap, Sparkles } from "lucide-react";
 
 const Index = () => {
   const [selectedCountry, setSelectedCountry] = useState("UK");
   const [showComparison, setShowComparison] = useState(false);
   const [isRealTime, setIsRealTime] = useState(false);
+  const [showPreferenceForm, setShowPreferenceForm] = useState(false);
+  const [recommendation, setRecommendation] = useState<any>(null);
 
   return (
     <div className="min-h-screen">
@@ -61,6 +65,15 @@ const Index = () => {
                 <GitCompare className="w-5 h-5 mr-2" />
                 {showComparison ? "Hide Comparison" : "Compare Countries"}
               </Button>
+              <Button
+                variant="default"
+                onClick={() => setShowPreferenceForm(!showPreferenceForm)}
+                size="lg"
+                className="min-w-48 transition-all duration-300 hover:scale-105"
+              >
+                <Sparkles className="w-5 h-5 mr-2" />
+                Find My Perfect Cereal
+              </Button>
             </div>
           </div>
         </div>
@@ -98,6 +111,31 @@ const Index = () => {
         <section className="animate-fade-in" style={{ animationDelay: '1s' }}>
           <StatsOverview country={selectedCountry} />
         </section>
+
+        {/* Preference Form */}
+        {showPreferenceForm && !recommendation && (
+          <section className="animate-fade-in">
+            <PreferenceForm 
+              onRecommendation={(rec) => {
+                setRecommendation(rec);
+                setShowPreferenceForm(false);
+              }}
+            />
+          </section>
+        )}
+
+        {/* Recommendation Result */}
+        {recommendation && (
+          <section className="animate-fade-in">
+            <RecommendationResult 
+              recommendation={recommendation}
+              onReset={() => {
+                setRecommendation(null);
+                setShowPreferenceForm(true);
+              }}
+            />
+          </section>
+        )}
 
         {/* Comparison Mode */}
         {showComparison && (

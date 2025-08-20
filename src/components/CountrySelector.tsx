@@ -3,7 +3,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 const countries = [
   { code: "UK", name: "United Kingdom", flag: "🇬🇧" },
   { code: "AU", name: "Australia", flag: "🇦🇺" },
-  { code: "PL", name: "Poland", flag: "🇵🇱" },
   { code: "FR", name: "France", flag: "🇫🇷" },
 ];
 

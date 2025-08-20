@@ -29,14 +29,6 @@ const countryData = {
     demographic: 'Gen Z',
     color: '#10b981'
   },
-  Poland: {
-    coordinates: [19.1343, 51.9194],
-    marketSize: 67,
-    growth: 15,
-    satisfaction: 71,
-    demographic: 'Gen X',
-    color: '#f59e0b'
-  },
   France: {
     coordinates: [2.2137, 46.2276],
     marketSize: 79,
