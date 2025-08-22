@@ -1,19 +1,38 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useEffect } from "react";
 
 const countries = [
   { code: "UK", name: "United Kingdom", flag: "https://flagcdn.com/w40/gb.png" },
   { code: "AU", name: "Australia", flag: "https://flagcdn.com/w40/au.png" },
-  { code: "PL", name: "Poland", flag: "https://flagcdn.com/w40/pl.png" },
   { code: "FR", name: "France", flag: "https://flagcdn.com/w40/fr.png" },
 ];
 
 interface CountrySelectorProps {
   selectedCountry: string;
+  selectedCereal1: string;
+  selectedCereal2: string;
   onCountryChange: (country: string) => void;
+  onCereal1Change: (cereal1: string) => void;
+  onCereal2Change: (cereal2: string) => void;
 }
+const cerealMapping: Record<string, string[]> = {
+  UK: ["Cookie Crisp", "Shreddies"],
+  AU: ["Breakfast Bakes", "Oat Slice"],
+  FR: ["Lion", "Tresor"],
+};
 
-export const CountrySelector = ({ selectedCountry, onCountryChange }: CountrySelectorProps) => {
+
+
+export const CountrySelector = ({ selectedCountry,selectedCereal1,selectedCereal2, onCountryChange, onCereal1Change,onCereal2Change }: CountrySelectorProps) => {
   const selectedCountryData = countries.find(c => c.code === selectedCountry);
+
+  useEffect(() => {
+    const cereals = cerealMapping[selectedCountry];
+    if (cereals) {
+      onCereal1Change(cereals[0]);
+      onCereal2Change(cereals[1]);
+    }
+  }, [selectedCountry]);
 
   return (
     <div className="card-analytics p-6 rounded-xl border max-w-md">

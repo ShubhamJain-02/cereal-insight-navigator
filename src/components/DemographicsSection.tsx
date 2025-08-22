@@ -4,51 +4,39 @@ import { FlipCard } from "@/components/FlipCard";
 
 const ageData = {
   UK: [
-    { age: '18-24', population: 2500 },
-    { age: '25-34', population: 3200 },
-    { age: '35-44', population: 2800 },
-    { age: '45-54', population: 2100 },
-    { age: '55+', population: 1800 }
+    { age: '18-29', population: 8 },
+    { age: '30-39', population: 16 },
+    { age: '40-49', population: 11 },
+    { age: '40-59', population: 8 }
   ],
   AU: [
-    { age: '18-24', population: 2200 },
-    { age: '25-34', population: 2900 },
-    { age: '35-44', population: 2600 },
-    { age: '45-54', population: 2000 },
-    { age: '55+', population: 1700 }
-  ],
-  PL: [
-    { age: '18-24', population: 1800 },
-    { age: '25-34', population: 2400 },
-    { age: '35-44', population: 2200 },
-    { age: '45-54', population: 1900 },
-    { age: '55+', population: 1500 }
+    { age: '18-24', population: 2 },
+    { age: '25-34', population: 6 },
+    { age: '35-44', population: 25 },
+    { age: '45-54', population: 7 },
+    { age: '55-64', population: 11 },
+    { age: '65+', population: 4 }
   ],
   FR: [
-    { age: '18-24', population: 2300 },
-    { age: '25-34', population: 3100 },
-    { age: '35-44', population: 2700 },
-    { age: '45-54', population: 2200 },
-    { age: '55+', population: 1900 }
+    { age: '25-34', population: 4 },
+    { age: '35-44', population: 27 },
+    { age: '45-54', population: 13 },
+    { age: '55+', population: 1 }
   ]
 };
 
 const genderData = {
   UK: [
-    { gender: 'Male', value: 48, count: 6200 },
-    { gender: 'Female', value: 52, count: 6700 }
+    { gender: 'Male', value: 18, count: 8 },
+    { gender: 'Female', value: 81, count: 36 }
   ],
   AU: [
-    { gender: 'Male', value: 49, count: 5500 },
-    { gender: 'Female', value: 51, count: 5700 }
-  ],
-  PL: [
-    { gender: 'Male', value: 47, count: 4700 },
-    { gender: 'Female', value: 53, count: 5300 }
+    { gender: 'Male', value: 42, count: 21 },
+    { gender: 'Female', value: 58, count: 30 }
   ],
   FR: [
-    { gender: 'Male', value: 48, count: 5800 },
-    { gender: 'Female', value: 52, count: 6400 }
+    { gender: 'Male', value: 22, count: 10 },
+    { gender: 'Female', value: 78, count: 36 }
   ]
 };
 

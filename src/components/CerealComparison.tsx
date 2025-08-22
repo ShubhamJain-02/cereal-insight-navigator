@@ -1,96 +1,125 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Legend } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import {
+  Card, CardContent, CardDescription, CardHeader, CardTitle
+} from './ui/card';
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from './ui/select';
+import {
+  RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Legend
+} from 'recharts';
 import { FlipCard } from './FlipCard';
-import { GitCompare, TrendingUp, Award, Target } from 'lucide-react';
+import { GitCompare, Target } from 'lucide-react';
 
 interface CerealComparisonProps {
   country: string;
 }
+type CerealMetrics = {
+  taste: number;
+  health: number;
+  filling: number;
+  packaging: number;
+  kids: number;
+  ingredients: number;
+  family: number;
+  variety: number;
+  convinience: number;
+};
 
-const cerealData = {
-  "Crunchy Oats Premium": {
-    taste: 85,
-    nutrition: 78,
-    price: 65,
-    packaging: 82,
-    availability: 90,
-    satisfaction: 87
+const cerealData: Record<string, Record<string, CerealMetrics>> = {
+  UK: {
+    "Cookie Crisps": {
+      taste: 86, health: 30, filling: 80, packaging: 70, kids: 98,
+      ingredients: 40, family: 40, variety: 70, convinience: 86
+    },
+    "Shreddies": {
+      taste: 56, health: 98, filling: 85, packaging: 81, kids: 60,
+      ingredients: 87, family: 90, variety: 50, convinience: 70
+    },
   },
-  "Healthy Granola Blend": {
-    taste: 79,
-    nutrition: 92,
-    price: 58,
-    packaging: 75,
-    availability: 85,
-    satisfaction: 83
+  AU: {
+    "Breakfast Bakes": {
+      taste: 85, health: 85, filling: 62, packaging: 70, kids: 60,
+      ingredients: 87, family: 95, variety: 55, convinience: 95
+    },
+    "Oat slice": {
+      taste: 75, health: 78, filling: 75, packaging: 85, kids: 70,
+      ingredients: 85, family: 60, variety: 90, convinience: 60
+    },
   },
-  "Morning Crunch Classic": {
-    taste: 88,
-    nutrition: 65,
-    price: 85,
-    packaging: 78,
-    availability: 95,
-    satisfaction: 81
+  FR: {
+    "Lion": {
+      taste: 90, health: 45, filling: 60, packaging: 80, kids: 70,
+      ingredients: 60, family: 70, variety: 80, convinience: 80
+    },
+    "Tresor": {
+      taste: 95, health: 25, filling: 70, packaging: 75, kids: 82,
+      ingredients: 65, family: 85, variety: 70, convinience: 85
+    },
   },
-  "Fiber Rich Flakes": {
-    taste: 72,
-    nutrition: 95,
-    price: 72,
-    packaging: 70,
-    availability: 88,
-    satisfaction: 79
-  }
 };
 
 export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) => {
-  const [cereal1, setCereal1] = useState("Crunchy Oats Premium");
-  const [cereal2, setCereal2] = useState("Healthy Granola Blend");
+  const cereals = Object.keys(cerealData[country]);
 
-  const cerealOptions = Object.keys(cerealData);
+  const [cereal1, setCereal1] = useState(cereals[0]);
+  const [cereal2, setCereal2] = useState(cereals[1]);
+  useEffect(() => {
+    const cereals = Object.keys(cerealData[country]);
+    setCereal1(cereals[0]);
+    setCereal2(cereals[1] ?? cereals[0]);
+  }, [country]);
 
   const getComparisonData = () => {
-    const data1 = cerealData[cereal1 as keyof typeof cerealData];
-    const data2 = cerealData[cereal2 as keyof typeof cerealData];
+  const data1 = cerealData[country]?.[cereal1];
+  const data2 = cerealData[country]?.[cereal2];
 
-    return [
-      { metric: 'Taste', cereal1: data1.taste, cereal2: data2.taste, fullMark: 100 },
-      { metric: 'Nutrition', cereal1: data1.nutrition, cereal2: data2.nutrition, fullMark: 100 },
-      { metric: 'Price Value', cereal1: data1.price, cereal2: data2.price, fullMark: 100 },
-      { metric: 'Packaging', cereal1: data1.packaging, cereal2: data2.packaging, fullMark: 100 },
-      { metric: 'Availability', cereal1: data1.availability, cereal2: data2.availability, fullMark: 100 },
-      { metric: 'Satisfaction', cereal1: data1.satisfaction, cereal2: data2.satisfaction, fullMark: 100 }
-    ];
-  };
+  if (!data1 || !data2) return [];
+
+  return Object.keys(data1).map((key) => ({
+    metric: key.charAt(0).toUpperCase() + key.slice(1),
+    cereal1: data1[key as keyof typeof data1],
+    cereal2: data2[key as keyof typeof data2],
+    fullMark: 100,
+  }));
+};
+
 
   const getWinner = () => {
-    const data1 = cerealData[cereal1 as keyof typeof cerealData];
-    const data2 = cerealData[cereal2 as keyof typeof cerealData];
-    
-    const total1 = Object.values(data1).reduce((sum, val) => sum + val, 0);
-    const total2 = Object.values(data2).reduce((sum, val) => sum + val, 0);
-    
-    return total1 > total2 ? cereal1 : cereal2;
-  };
+  const data1 = cerealData[country]?.[cereal1];
+  const data2 = cerealData[country]?.[cereal2];
 
-  const getTopMetric = () => {
-    const comparisonData = getComparisonData();
-    let maxDiff = 0;
-    let topMetric = '';
-    let leader = '';
+  if (!data1 || !data2) return "N/A";
 
-    comparisonData.forEach(item => {
-      const diff = Math.abs(item.cereal1 - item.cereal2);
-      if (diff > maxDiff) {
-        maxDiff = diff;
-        topMetric = item.metric;
-        leader = item.cereal1 > item.cereal2 ? cereal1 : cereal2;
-      }
-    });
+  const total1 = Object.values(data1).reduce((sum, val) => sum + val, 0);
+  const total2 = Object.values(data2).reduce((sum, val) => sum + val, 0);
 
-    return { metric: topMetric, leader, difference: maxDiff };
-  };
+  return total1 > total2 ? cereal1 : cereal2;
+};
+
+
+ const getTopMetric = () => {
+  const comparisonData = getComparisonData();
+  if (comparisonData.length === 0) {
+    return { metric: "N/A", leader: "N/A", difference: 0 };
+  }
+
+  let maxDiff = 0;
+  let topMetric = '';
+  let leader = '';
+
+  comparisonData.forEach(item => {
+    const diff = Math.abs(item.cereal1 - item.cereal2);
+    if (diff > maxDiff) {
+      maxDiff = diff;
+      topMetric = item.metric;
+      leader = item.cereal1 > item.cereal2 ? cereal1 : cereal2;
+    }
+  });
+
+  return { metric: topMetric, leader, difference: maxDiff };
+};
+
 
   const winner = getWinner();
   const topMetric = getTopMetric();
@@ -126,13 +155,13 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {cerealOptions.filter(option => option !== cereal2).map((cereal) => (
+                  {cereals.filter(option => option !== cereal2).map((cereal) => (
                     <SelectItem key={cereal} value={cereal}>{cereal}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
               <label className="text-sm font-medium text-muted-foreground">Product B</label>
               <Select value={cereal2} onValueChange={setCereal2}>
@@ -140,7 +169,7 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {cerealOptions.filter(option => option !== cereal1).map((cereal) => (
+                  {cereals.filter(option => option !== cereal1).map((cereal) => (
                     <SelectItem key={cereal} value={cereal}>{cereal}</SelectItem>
                   ))}
                 </SelectContent>
@@ -163,20 +192,20 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={getComparisonData()}>
                 <PolarGrid stroke="hsl(var(--border))" />
-                <PolarAngleAxis 
-                  dataKey="metric" 
-                  tick={{ 
-                    fill: 'hsl(var(--foreground))', 
+                <PolarAngleAxis
+                  dataKey="metric"
+                  tick={{
+                    fill: 'hsl(var(--foreground))',
                     fontSize: 12,
                     fontWeight: 500
-                  }} 
+                  }}
                 />
-                <PolarRadiusAxis 
-                  angle={90} 
-                  domain={[0, 100]} 
-                  tick={{ 
-                    fill: 'hsl(var(--muted-foreground))', 
-                    fontSize: 10 
+                <PolarRadiusAxis
+                  angle={90}
+                  domain={[0, 100]}
+                  tick={{
+                    fill: 'hsl(var(--muted-foreground))',
+                    fontSize: 10
                   }}
                 />
                 <Radar
@@ -195,7 +224,7 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
                   fillOpacity={0.2}
                   strokeWidth={3}
                 />
-                <Legend 
+                <Legend
                   wrapperStyle={{
                     paddingTop: '20px',
                     fontSize: '14px'
@@ -216,7 +245,7 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
             metrics: [`Winner: ${winner}`, `Market: ${country}`, `Performance: Superior`]
           }}
         />
-        
+
         <FlipCard
           insight={{
             title: "Key Differentiator",
@@ -224,7 +253,7 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
             metrics: [`Metric: ${topMetric.metric}`, `Leader: ${topMetric.leader}`, `Gap: ${topMetric.difference} points`]
           }}
         />
-        
+
         <FlipCard
           insight={{
             title: "Strategic Recommendation",

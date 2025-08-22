@@ -6,15 +6,21 @@ import { MLAnalysisSection } from "@/components/MLAnalysisSection";
 import { StatsOverview } from "@/components/StatsOverview";
 import { ComparisonMode } from "@/components/ComparisonMode";
 import { CerealComparison } from "@/components/CerealComparison";
+import { PreferenceForm } from "@/components/PreferenceForm";
+import { RecommendationResult } from "@/components/RecommendationResult";
 import CountryMap from "@/components/CountryMap";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Users, BarChart3, GitCompare, Zap } from "lucide-react";
+import { TrendingUp, Users, BarChart3, GitCompare, Zap, Sparkles } from "lucide-react";
 
 const Index = () => {
   const [selectedCountry, setSelectedCountry] = useState("UK");
+  const [selectedCereal1, setselectedCereal1] = useState("Cookie Crisp");
+  const [selectedCereal2, setselectedCereal2] = useState("Shreddies");
   const [showComparison, setShowComparison] = useState(false);
   const [isRealTime, setIsRealTime] = useState(false);
-
+  const [showPreferenceForm, setShowPreferenceForm] = useState(false);
+  const [recommendation, setRecommendation] = useState<any>(null);
+  
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -61,6 +67,15 @@ const Index = () => {
                 <GitCompare className="w-5 h-5 mr-2" />
                 {showComparison ? "Hide Comparison" : "Compare Countries"}
               </Button>
+              <Button
+                variant="default"
+                onClick={() => setShowPreferenceForm(!showPreferenceForm)}
+                size="lg"
+                className="min-w-48 transition-all duration-300 hover:scale-105"
+              >
+                <Sparkles className="w-5 h-5 mr-2" />
+                Find My Perfect Cereal
+              </Button>
             </div>
           </div>
         </div>
@@ -76,14 +91,18 @@ const Index = () => {
         <section className="flex flex-col lg:flex-row gap-8 items-start justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="w-full lg:w-auto">
             <CountrySelector 
-              selectedCountry={selectedCountry} 
+              selectedCountry={selectedCountry}
+              selectedCereal1={selectedCereal1}
+              selectedCereal2={selectedCereal2}
               onCountryChange={setSelectedCountry} 
+              onCereal1Change={setselectedCereal1 } 
+              onCereal2Change={setselectedCereal2}              
             />
           </div>
         </section>
 
         {/* Interactive Map Section */}
-        <section className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
+        {/* <section className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-2">Global Market Overview</h2>
             <p className="text-muted-foreground">Interactive analysis across different markets</p>
@@ -92,12 +111,37 @@ const Index = () => {
             selectedCountry={selectedCountry} 
             onCountrySelect={setSelectedCountry} 
           />
-        </section>
+        </section> */}
 
         {/* Stats Overview Section */}
         <section className="animate-fade-in" style={{ animationDelay: '1s' }}>
           <StatsOverview country={selectedCountry} />
         </section>
+
+        {/* Preference Form */}
+        {showPreferenceForm && !recommendation && (
+          <section className="animate-fade-in">
+            <PreferenceForm 
+              onRecommendation={(rec) => {
+                setRecommendation(rec);
+                setShowPreferenceForm(false);
+              }}
+            />
+          </section>
+        )}
+
+        {/* Recommendation Result */}
+        {recommendation && (
+          <section className="animate-fade-in">
+            <RecommendationResult 
+              recommendation={recommendation}
+              onReset={() => {
+                setRecommendation(null);
+                setShowPreferenceForm(true);
+              }}
+            />
+          </section>
+        )}
 
         {/* Comparison Mode */}
         {showComparison && (
@@ -154,13 +198,13 @@ const Index = () => {
           </div>
           
           <CerealAnalysisSection 
-            cerealName="Crunchy Oats Premium" 
+            cerealName={selectedCereal1} 
             cerealId="cereal1"
             country={selectedCountry} 
           />
           
           <CerealAnalysisSection 
-            cerealName="Healthy Granola Blend" 
+            cerealName={selectedCereal2} 
             cerealId="cereal2"
             country={selectedCountry} 
           />

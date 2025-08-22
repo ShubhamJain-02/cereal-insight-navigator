@@ -16,7 +16,6 @@ export const ComparisonMode = ({ primaryCountry, onClose }: ComparisonModeProps)
   const countries = [
     { code: "UK", name: "United Kingdom" },
     { code: "AU", name: "Australia" },
-    { code: "PL", name: "Poland" },
     { code: "FR", name: "France" },
   ];
 

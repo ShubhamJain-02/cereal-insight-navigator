@@ -7,66 +7,41 @@ const wordFrequencyData = {
   cereal1: {
     UK: {
       positive: [
-        { word: 'delicious', count: 120 },
-        { word: 'crunchy', count: 95 },
-        { word: 'healthy', count: 90 },
-        { word: 'tasty', count: 85 },
-        { word: 'fresh', count: 80 }
+        { word: 'chocolate', count: 12 },
+        { word: 'desert like', count: 9 },
+        { word: 'kids like it', count: 8 },
+        { word: 'good branding', count: 7 },
       ],
       negative: [
-        { word: 'bland', count: 60 },
-        { word: 'stale', count: 45 },
-        { word: 'soggy', count: 40 },
-        { word: 'expensive', count: 35 },
-        { word: 'artificial', count: 30 }
+        { word: 'like of fiber', count: 7},
+        { word: 'not filling', count: 8 },
+        { word: 'high sugar', count: 13 }
       ]
     },
     AU: {
       positive: [
-        { word: 'crunchy', count: 100 },
-        { word: 'nutritious', count: 85 },
-        { word: 'affordable', count: 75 },
-        { word: 'tasty', count: 70 },
-        { word: 'natural', count: 65 }
+        { word: 'health', count: 11 },
+        { word: 'family choice', count: 9 },
+        { word: 'convinience', count: 6 },
+        { word: 'variety', count: 5 },
       ],
       negative: [
-        { word: 'stale', count: 50 },
-        { word: 'dry', count: 45 },
-        { word: 'hard', count: 40 },
-        { word: 'boring', count: 30 },
-        { word: 'unhealthy', count: 25 }
-      ]
-    },
-    PL: {
-      positive: [
-        { word: 'smaczne', count: 95 },
-        { word: 'chrupiące', count: 80 },
-        { word: 'zdrowe', count: 70 },
-        { word: 'świeże', count: 65 },
-        { word: 'dobrze', count: 60 }
-      ],
-      negative: [
-        { word: 'nudne', count: 40 },
-        { word: 'stare', count: 35 },
-        { word: 'drogi', count: 30 },
-        { word: 'zbyt twarde', count: 25 },
-        { word: 'słabe', count: 20 }
+        { word: 'availability', count: 3 },
+        { word: 'portion size', count: 4 },
+        { word: 'expensive', count: 5 },
+        { word: 'packaging', count: 6 },
       ]
     },
     FR: {
       positive: [
-        { word: 'délicieux', count: 110 },
-        { word: 'croquant', count: 95 },
-        { word: 'sain', count: 90 },
-        { word: 'frais', count: 80 },
-        { word: 'bon goût', count: 75 }
+        { word: 'strong branding', count: 7 },
+        { word: 'whole wheat', count: 9 },
+        { word: 'chocolate and caramel', count: 12 }
       ],
       negative: [
-        { word: 'fade', count: 55 },
-        { word: 'cher', count: 50 },
-        { word: 'mou', count: 40 },
-        { word: 'artificiel', count: 35 },
-        { word: 'sec', count: 30 }
+        { word: 'palm oil', count: 5 },
+        { word: 'processed', count: 8 },
+        { word: 'high sugar', count: 11 }
       ]
     }
   },
@@ -74,66 +49,44 @@ const wordFrequencyData = {
   cereal2: {
     UK: {
       positive: [
-        { word: 'nutritious', count: 100 },
-        { word: 'yummy', count: 90 },
-        { word: 'natural', count: 85 },
-        { word: 'crunchy', count: 80 },
-        { word: 'satisfying', count: 75 }
+        { word: 'nutritious', count: 8 },
+        { word: 'health', count: 11 },
+        { word: 'filling', count: 5 },
+        { word: 'tasty', count: 2 },
       ],
       negative: [
-        { word: 'dry', count: 55 },
-        { word: 'flavorless', count: 50 },
-        { word: 'bitter', count: 40 },
-        { word: 'unpleasant', count: 30 },
-        { word: 'fake', count: 25 }
+        { word: 'processed', count: 9 },
+        { word: 'less appealing', count: 8 },
+        { word: 'bland', count: 7 },
+        { word: 'plain', count: 10 },
       ]
     },
     AU: {
       positive: [
-        { word: 'organic', count: 95 },
-        { word: 'flavorful', count: 85 },
-        { word: 'wholesome', count: 80 },
-        { word: 'crisp', count: 75 },
-        { word: 'energy', count: 70 }
+        { word: 'grab-n-go', count: 11 },
+        { word: 'flavorful', count: 11 },
+        { word: 'natural', count: 9 },
+        { word: 'healthy', count: 12 },
       ],
       negative: [
-        { word: 'plain', count: 50 },
-        { word: 'tough', count: 45 },
-        { word: 'stale', count: 40 },
-        { word: 'noisy', count: 35 },
-        { word: 'pricey', count: 30 }
-      ]
-    },
-    PL: {
-      positive: [
-        { word: 'naturalne', count: 90 },
-        { word: 'pyszne', count: 85 },
-        { word: 'chrupkie', count: 80 },
-        { word: 'odżywcze', count: 75 },
-        { word: 'smaczne', count: 70 }
-      ],
-      negative: [
-        { word: 'mdłe', count: 45 },
-        { word: 'suche', count: 40 },
-        { word: 'gorzkie', count: 35 },
-        { word: 'twarde', count: 30 },
-        { word: 'drogie', count: 25 }
+        { word: 'packaging', count: 5 },
+        { word: 'portion size', count: 6 },
+        { word: 'dry/crumbly', count: 7 },
+        { word: 'pricey', count: 4 }
       ]
     },
     FR: {
       positive: [
-        { word: 'sain', count: 95 },
-        { word: 'croquant', count: 85 },
-        { word: 'délicieux', count: 80 },
-        { word: 'naturel', count: 75 },
-        { word: 'nourrissant', count: 70 }
+        { word: 'kids appeal', count: 7 },
+        { word: 'versatile', count: 9 },
+        { word: 'crunchy', count: 10 },
+        { word: 'chocolate', count: 13 }
       ],
       negative: [
-        { word: 'fade', count: 50 },
-        { word: 'dur', count: 45 },
-        { word: 'pas frais', count: 40 },
-        { word: 'trop cher', count: 35 },
-        { word: 'sec', count: 30 }
+        { word: 'portion size', count: 5 },
+        { word: 'low nutrition', count: 6 },
+        { word: 'sweet', count: 9 },
+        { word: 'messy to eat', count: 11 },
       ]
     }
   }
