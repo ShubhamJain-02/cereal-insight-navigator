@@ -126,8 +126,8 @@ All colors MUST be HSL.
     overflow-x: hidden;
   }
   
-  body::before {
-    content: '';
+  /* Floating cereal elements */
+  .cereal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -135,30 +135,67 @@ All colors MUST be HSL.
     height: 100%;
     pointer-events: none;
     z-index: -1;
-    background-image: 
-      radial-gradient(circle at 10% 20%, hsl(45 100% 70% / 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, hsl(25 100% 65% / 0.25) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, hsl(35 90% 60% / 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 90% 10%, hsl(50 85% 75% / 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 30% 90%, hsl(40 95% 65% / 0.25) 0%, transparent 50%);
-    animation: float-cereals 20s ease-in-out infinite;
   }
   
-  body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    background-image:
-      radial-gradient(ellipse at 15% 60%, hsl(30 100% 70% / 0.2) 0%, transparent 40%),
-      radial-gradient(ellipse at 70% 30%, hsl(20 90% 65% / 0.25) 0%, transparent 45%),
-      radial-gradient(ellipse at 60% 85%, hsl(55 100% 75% / 0.2) 0%, transparent 35%),
-      radial-gradient(ellipse at 85% 50%, hsl(40 85% 60% / 0.3) 0%, transparent 40%);
-    animation: float-cereals 25s ease-in-out infinite reverse;
+  .cereal-piece {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .cereal-piece:nth-child(1) {
+    width: 12px;
+    height: 12px;
+    background: hsl(45 100% 60%);
+    top: 10%;
+    left: 15%;
+    animation: float-1 15s ease-in-out infinite;
+  }
+  
+  .cereal-piece:nth-child(2) {
+    width: 8px;
+    height: 8px;
+    background: hsl(25 100% 55%);
+    top: 20%;
+    right: 20%;
+    animation: float-2 18s ease-in-out infinite;
+  }
+  
+  .cereal-piece:nth-child(3) {
+    width: 10px;
+    height: 10px;
+    background: hsl(35 90% 65%);
+    bottom: 30%;
+    left: 25%;
+    animation: float-3 12s ease-in-out infinite;
+  }
+  
+  .cereal-piece:nth-child(4) {
+    width: 14px;
+    height: 14px;
+    background: hsl(50 85% 70%);
+    top: 60%;
+    right: 15%;
+    animation: float-4 20s ease-in-out infinite;
+  }
+  
+  .cereal-piece:nth-child(5) {
+    width: 9px;
+    height: 9px;
+    background: hsl(40 95% 58%);
+    bottom: 20%;
+    right: 40%;
+    animation: float-5 16s ease-in-out infinite;
+  }
+  
+  .cereal-piece:nth-child(6) {
+    width: 11px;
+    height: 11px;
+    background: hsl(30 100% 60%);
+    top: 40%;
+    left: 10%;
+    animation: float-6 14s ease-in-out infinite;
   }
 }
 

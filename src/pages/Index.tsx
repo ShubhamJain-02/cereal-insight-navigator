@@ -21,6 +21,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Floating cereal background elements */}
+      <div className="cereal-container">
+        <div className="cereal-piece"></div>
+        <div className="cereal-piece"></div>
+        <div className="cereal-piece"></div>
+        <div className="cereal-piece"></div>
+        <div className="cereal-piece"></div>
+        <div className="cereal-piece"></div>
+      </div>
+      
       {/* Hero Section */}
       <header className="relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5">
         <div className="container mx-auto px-6 py-16">

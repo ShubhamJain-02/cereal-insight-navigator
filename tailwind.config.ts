@@ -135,19 +135,35 @@ export default {
 						opacity: '1'
 					}
 				},
-				'float-cereals': {
-					'0%, 100%': {
-						transform: 'translateY(0px) translateX(0px) rotate(0deg)'
-					},
-					'25%': {
-						transform: 'translateY(-20px) translateX(10px) rotate(90deg)'
-					},
-					'50%': {
-						transform: 'translateY(-10px) translateX(-15px) rotate(180deg)'
-					},
-					'75%': {
-						transform: 'translateY(-30px) translateX(5px) rotate(270deg)'
-					}
+				'float-1': {
+					'0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+					'25%': { transform: 'translateY(-30px) translateX(20px)' },
+					'50%': { transform: 'translateY(-10px) translateX(-25px)' },
+					'75%': { transform: 'translateY(-40px) translateX(15px)' }
+				},
+				'float-2': {
+					'0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+					'33%': { transform: 'translateY(-25px) translateX(-20px)' },
+					'66%': { transform: 'translateY(-15px) translateX(30px)' }
+				},
+				'float-3': {
+					'0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+					'50%': { transform: 'translateY(-35px) translateX(-15px)' }
+				},
+				'float-4': {
+					'0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+					'25%': { transform: 'translateY(-20px) translateX(-30px)' },
+					'75%': { transform: 'translateY(-45px) translateX(10px)' }
+				},
+				'float-5': {
+					'0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+					'40%': { transform: 'translateY(-28px) translateX(25px)' },
+					'80%': { transform: 'translateY(-12px) translateX(-20px)' }
+				},
+				'float-6': {
+					'0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+					'30%': { transform: 'translateY(-33px) translateX(18px)' },
+					'70%': { transform: 'translateY(-18px) translateX(-25px)' }
 				}
 			},
 			animation: {
@@ -157,7 +173,12 @@ export default {
 				'slide-in-right': 'slide-in-right 0.5s ease-out',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'bounce-in': 'bounce-in 0.6s ease-out',
-				'float-cereals': 'float-cereals 20s ease-in-out infinite'
+				'float-1': 'float-1 15s ease-in-out infinite',
+				'float-2': 'float-2 18s ease-in-out infinite',
+				'float-3': 'float-3 12s ease-in-out infinite',
+				'float-4': 'float-4 20s ease-in-out infinite',
+				'float-5': 'float-5 16s ease-in-out infinite',
+				'float-6': 'float-6 14s ease-in-out infinite'
 			}
 		}
 	},
