@@ -8,55 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 30 25% 8%;
-    --foreground: 45 85% 90%;
+    --background: 45 60% 95%;
+    --foreground: 30 40% 15%;
 
-    --card: 30 25% 10%;
-    --card-foreground: 45 85% 90%;
+    --card: 45 40% 98%;
+    --card-foreground: 30 40% 15%;
 
-    --popover: 30 25% 10%;
-    --popover-foreground: 45 85% 90%;
+    --popover: 45 40% 98%;
+    --popover-foreground: 30 40% 15%;
 
-    --primary: 45 85% 55%;
-    --primary-foreground: 30 40% 15%;
-    --primary-glow: 45 85% 70%;
+    --primary: 30 80% 45%;
+    --primary-foreground: 45 60% 95%;
+    --primary-glow: 30 80% 60%;
 
-    --secondary: 25 45% 35%;
-    --secondary-foreground: 45 85% 90%;
+    --secondary: 45 30% 85%;
+    --secondary-foreground: 30 40% 20%;
 
-    --muted: 30 20% 25%;
-    --muted-foreground: 30 15% 65%;
+    --muted: 45 20% 90%;
+    --muted-foreground: 30 25% 40%;
 
-    --accent: 25 85% 60%;
-    --accent-foreground: 25 40% 15%;
+    --accent: 25 85% 55%;
+    --accent-foreground: 45 60% 95%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 30 20% 30%;
-    --input: 30 20% 25%;
-    --ring: 45 85% 55%;
+    --border: 45 30% 80%;
+    --input: 45 40% 92%;
+    --ring: 30 80% 45%;
 
     /* Custom analytics colors */
-    --chart-1: 45 85% 55%;
-    --chart-2: 25 85% 60%;
-    --chart-3: 30 75% 45%;
-    --chart-4: 15 70% 50%;
-    --chart-5: 35 65% 40%;
+    --chart-1: 30 80% 45%;
+    --chart-2: 25 85% 55%;
+    --chart-3: 35 75% 50%;
+    --chart-4: 15 70% 45%;
+    --chart-5: 40 65% 40%;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(45 85% 55%), hsl(45 85% 70%));
-    --gradient-secondary: linear-gradient(135deg, hsl(25 45% 35%), hsl(25 45% 50%));
-    --gradient-accent: linear-gradient(135deg, hsl(25 85% 60%), hsl(25 85% 75%));
-    --gradient-bg: linear-gradient(135deg, hsl(30 25% 8%), hsl(25 20% 12%));
-    --gradient-card: linear-gradient(135deg, hsl(30 25% 10%), hsl(25 20% 15%));
-    --gradient-hero: linear-gradient(135deg, hsl(45 85% 55% / 0.1), hsl(25 85% 60% / 0.1));
+    --gradient-primary: linear-gradient(135deg, hsl(30 80% 45%), hsl(30 80% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(45 30% 85%), hsl(45 30% 90%));
+    --gradient-accent: linear-gradient(135deg, hsl(25 85% 55%), hsl(25 85% 70%));
+    --gradient-bg: linear-gradient(135deg, hsl(45 60% 95%), hsl(45 40% 92%));
+    --gradient-card: linear-gradient(135deg, hsl(45 40% 98%), hsl(45 30% 96%));
+    --gradient-hero: linear-gradient(135deg, hsl(30 80% 45% / 0.1), hsl(25 85% 55% / 0.1));
     
     /* Shadows */
-    --shadow-glow: 0 0 30px hsl(45 85% 55% / 0.3);
-    --shadow-card: 0 4px 20px hsl(30 25% 8% / 0.4);
-    --shadow-intense: 0 8px 40px hsl(45 85% 55% / 0.2);
-    --shadow-soft: 0 2px 10px hsl(30 25% 8% / 0.2);
+    --shadow-glow: 0 0 30px hsl(30 80% 45% / 0.2);
+    --shadow-card: 0 4px 20px hsl(30 40% 60% / 0.15);
+    --shadow-intense: 0 8px 40px hsl(30 80% 45% / 0.15);
+    --shadow-soft: 0 2px 10px hsl(30 40% 60% / 0.1);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -64,14 +64,14 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
 
-    --sidebar-background: 30 25% 10%;
-    --sidebar-foreground: 45 85% 90%;
-    --sidebar-primary: 45 85% 55%;
-    --sidebar-primary-foreground: 30 40% 15%;
-    --sidebar-accent: 30 25% 12%;
-    --sidebar-accent-foreground: 45 85% 90%;
-    --sidebar-border: 30 20% 30%;
-    --sidebar-ring: 45 85% 55%;
+    --sidebar-background: 45 40% 98%;
+    --sidebar-foreground: 30 40% 15%;
+    --sidebar-primary: 30 80% 45%;
+    --sidebar-primary-foreground: 45 60% 95%;
+    --sidebar-accent: 45 30% 85%;
+    --sidebar-accent-foreground: 30 40% 20%;
+    --sidebar-border: 45 30% 80%;
+    --sidebar-ring: 30 80% 45%;
   }
 
   .dark {
