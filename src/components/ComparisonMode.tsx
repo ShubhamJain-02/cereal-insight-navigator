@@ -10,39 +10,57 @@ interface ComparisonModeProps {
   onClose: () => void;
 }
 
+const getAverageMetrics = (country: string) => {
+  const cerealData: Record<string, Record<string, any>> = {
+    UK: {
+      "Cookie Crisps": { taste: 86, health: 30, filling: 80, convenience: 86, kids: 98, family: 40 },
+      "Shreddies": { taste: 56, health: 98, filling: 85, convenience: 70, kids: 60, family: 90 },
+    },
+    AU: {
+      "Breakfast Bakes": { taste: 85, health: 85, filling: 62, convenience: 95, kids: 60, family: 95 },
+      "Oat slice": { taste: 75, health: 78, filling: 75, convenience: 60, kids: 70, family: 60 },
+    },
+    FR: {
+      "Lion": { taste: 90, health: 45, filling: 60, convenience: 80, kids: 70, family: 70 },
+      "Tresor": { taste: 95, health: 25, filling: 70, convenience: 85, kids: 82, family: 85 },
+    },
+  };
+
+  const cereals = Object.values(cerealData[country]);
+  const keys = ["taste", "health", "filling", "convenience", "kids", "family"];
+  const averages: Record<string, number> = {};
+
+  for (const key of keys) {
+    const total = cereals.reduce((sum, item) => sum + item[key], 0);
+    averages[key] = parseFloat((total / cereals.length).toFixed(1));
+  }
+
+  return averages;
+};
+
 export const ComparisonMode = ({ primaryCountry, onClose }: ComparisonModeProps) => {
   const [compareCountry, setCompareCountry] = useState("AU");
-  
+
   const countries = [
     { code: "UK", name: "United Kingdom" },
     { code: "AU", name: "Australia" },
     { code: "FR", name: "France" },
   ];
 
-  const comparisonData = [
-    {
-      metric: "User Engagement",
-      [primaryCountry]: 89.3,
-      [compareCountry]: 85.7,
-    },
-    {
-      metric: "Conversion Rate",
-      [primaryCountry]: 12.5,
-      [compareCountry]: 14.2,
-    },
-    {
-      metric: "Retention Rate",
-      [primaryCountry]: 78.4,
-      [compareCountry]: 72.1,
-    },
-    {
-      metric: "Satisfaction Score",
-      [primaryCountry]: 4.7,
-      [compareCountry]: 4.5,
-    }
-  ];
+  const primaryMetrics = getAverageMetrics(primaryCountry);
+  const compareMetrics = getAverageMetrics(compareCountry);
+
+  const comparisonData = Object.keys(primaryMetrics).map(metric => ({
+    metric: metric.charAt(0).toUpperCase() + metric.slice(1),
+    [primaryCountry]: primaryMetrics[metric],
+    [compareCountry]: compareMetrics[metric],
+  }));
 
   const availableCountries = countries.filter(c => c.code !== primaryCountry);
+
+  const leadingMetrics = comparisonData.filter(
+    item => item[primaryCountry] > item[compareCountry]
+  ).length;
 
   return (
     <Card className="card-analytics animate-slide-in-right">
@@ -60,8 +78,8 @@ export const ComparisonMode = ({ primaryCountry, onClose }: ComparisonModeProps)
           Comparing {primaryCountry} vs {compareCountry}
         </CardDescription>
       </CardHeader>
+
       <CardContent className="space-y-6">
-        {/* Country Selector */}
         <div className="flex gap-2 flex-wrap">
           {availableCountries.map(country => (
             <Button
@@ -81,21 +99,21 @@ export const ComparisonMode = ({ primaryCountry, onClose }: ComparisonModeProps)
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={comparisonData}>
               <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-              <XAxis 
-                dataKey="metric" 
+              <XAxis
+                dataKey="metric"
                 tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
                 axisLine={{ stroke: 'hsl(var(--border))' }}
               />
-              <YAxis 
+              <YAxis
                 tick={{ fill: 'hsl(var(--muted-foreground))' }}
                 axisLine={{ stroke: 'hsl(var(--border))' }}
               />
-              <Tooltip 
-                contentStyle={{ 
+              <Tooltip
+                contentStyle={{
                   backgroundColor: 'hsl(var(--card))',
                   border: '1px solid hsl(var(--border))',
                   borderRadius: '8px',
-                  color: 'hsl(var(--card-foreground))'
+                  color: 'hsl(var(--card-foreground))',
                 }}
               />
               <Bar dataKey={primaryCountry} fill="hsl(var(--chart-1))" radius={[2, 2, 0, 0]} />
@@ -104,21 +122,29 @@ export const ComparisonMode = ({ primaryCountry, onClose }: ComparisonModeProps)
           </ResponsiveContainer>
         </div>
 
-        {/* Quick Stats */}
+        {/* Strategic Summary */}
         <div className="grid grid-cols-2 gap-4">
           <div className="text-center">
             <Badge variant="secondary" className="mb-2">
               {primaryCountry}
             </Badge>
-            <div className="text-2xl font-bold text-chart-1">Higher</div>
-            <div className="text-sm text-muted-foreground">In 3/4 metrics</div>
+            <div className="text-lg font-bold text-chart-1">
+              {leadingMetrics > 3 ? "Leads" : "Lags"}
+            </div>
+            <div className="text-lg text-muted-foreground">
+              In {leadingMetrics}/6 key drivers
+            </div>
           </div>
           <div className="text-center">
             <Badge variant="secondary" className="mb-2">
               {compareCountry}
             </Badge>
-            <div className="text-2xl font-bold text-chart-2">Lower</div>
-            <div className="text-sm text-muted-foreground">In 1/4 metrics</div>
+            <div className="text-lg font-bold text-chart-2">
+              {6 - leadingMetrics > 3 ? "Leads" : "Lags"}
+            </div>
+            <div className="text-lg text-muted-foreground">
+              In {6 - leadingMetrics}/6 key drivers
+            </div>
           </div>
         </div>
       </CardContent>

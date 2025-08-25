@@ -20,7 +20,7 @@ const formSchema = z.object({
   ingredients: z.number().min(1).max(10),
   family: z.number().min(1).max(10),
   variety: z.number().min(1).max(10),
-  convinience: z.number().min(1).max(10),
+  convenience: z.number().min(1).max(10),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -33,7 +33,7 @@ const countries = [
 
 const cerealDataByCountry = {
   UK: {
-    "Cookie Crisps": {
+    "Cookie Crisp": {
       taste: 86,
       health: 30,
       filling: 80,
@@ -42,7 +42,7 @@ const cerealDataByCountry = {
       ingredients: 40,
       family: 40,
       variety: 70,
-      convinience: 86
+      convenience: 86
     },
     "Shreddies": {
       taste: 56,
@@ -53,7 +53,7 @@ const cerealDataByCountry = {
       ingredients: 87,
       family: 90,
       variety: 50,
-      convinience: 70
+      convenience: 70
     },
   },
   AU: {
@@ -66,7 +66,7 @@ const cerealDataByCountry = {
       ingredients: 87,
       family: 95,
       variety: 55,
-      convinience: 95
+      convenience: 95
     },
     "Oat slice": {
       taste: 75,
@@ -77,7 +77,7 @@ const cerealDataByCountry = {
       ingredients: 85,
       family: 60,
       variety: 90,
-      convinience: 60
+      convenience: 60
     },
   },
   FR: {
@@ -90,7 +90,7 @@ const cerealDataByCountry = {
       ingredients: 60,
       family: 70,
       variety: 80,
-      convinience: 80
+      convenience: 80
     },
     "Tresor": {
       taste: 95,
@@ -101,7 +101,7 @@ const cerealDataByCountry = {
       ingredients: 65,
       family: 85,
       variety: 70,
-      convinience: 85
+      convenience: 85
     },
   },
 };
@@ -115,7 +115,7 @@ const factors = [
   { key: "ingredients" as const, label: "Ingredients", description: "How important is healthy ingredient profile?" },
   { key: "family" as const, label: "Family appeal", description: "How important is family appeal?" },
   { key: "variety" as const, label: "Variety", description: "How important is variety of cereals?" },
-  { key: "convinience" as const, label: "Convinience", description: "How important is convinience of use?" },
+  { key: "convenience" as const, label: "Convenience", description: "How important is convenience of use?" },
 ];
 
 interface PreferenceFormProps {
@@ -142,7 +142,7 @@ export const PreferenceForm = ({ onRecommendation }: PreferenceFormProps) => {
       ingredients: 5,
       family: 5,
       variety: 5,
-      convinience: 5
+      convenience: 5
     },
   });
 
@@ -176,12 +176,12 @@ export const PreferenceForm = ({ onRecommendation }: PreferenceFormProps) => {
     const best = results[0];
     const runner = results[1];
     
-    // Find the strongest factor for the recommended cereal
-    const strongestFactor = factors.reduce((prev, current) => {
-      const prevDiff = Math.abs(best.details[prev.key] - runner.details[prev.key]);
-      const currentDiff = Math.abs(best.details[current.key] - runner.details[current.key]);
-      return currentDiff > prevDiff ? current : prev;
-    });
+const strongestFactor = factors.reduce((prev, current) => {
+  const prevContribution = (userPrefs[prev.key] / 10) * (best.details[prev.key] / 100);
+  const currentContribution = (userPrefs[current.key] / 10) * (best.details[current.key] / 100);
+  return currentContribution > prevContribution ? current : prev;
+});
+
 
     return {
       recommendedCereal: best.name,

@@ -124,9 +124,9 @@ const Index = () => {
         </section> */}
 
         {/* Stats Overview Section */}
-        <section className="animate-fade-in" style={{ animationDelay: '1s' }}>
+        {/* <section className="animate-fade-in" style={{ animationDelay: '1s' }}>
           <StatsOverview country={selectedCountry} />
-        </section>
+        </section> */}
 
         {/* Preference Form */}
         {showPreferenceForm && !recommendation && (

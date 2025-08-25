@@ -23,38 +23,38 @@ type CerealMetrics = {
   ingredients: number;
   family: number;
   variety: number;
-  convinience: number;
+  convenience: number;
 };
 
 const cerealData: Record<string, Record<string, CerealMetrics>> = {
   UK: {
-    "Cookie Crisps": {
+    "Cookie Crisp": {
       taste: 86, health: 30, filling: 80, packaging: 70, kids: 98,
-      ingredients: 40, family: 40, variety: 70, convinience: 86
+      ingredients: 40, family: 40, variety: 70, convenience: 86
     },
     "Shreddies": {
       taste: 56, health: 98, filling: 85, packaging: 81, kids: 60,
-      ingredients: 87, family: 90, variety: 50, convinience: 70
+      ingredients: 87, family: 90, variety: 50, convenience: 70
     },
   },
   AU: {
     "Breakfast Bakes": {
       taste: 85, health: 85, filling: 62, packaging: 70, kids: 60,
-      ingredients: 87, family: 95, variety: 55, convinience: 95
+      ingredients: 87, family: 95, variety: 55, convenience: 95
     },
     "Oat slice": {
       taste: 75, health: 78, filling: 75, packaging: 85, kids: 70,
-      ingredients: 85, family: 60, variety: 90, convinience: 60
+      ingredients: 85, family: 60, variety: 90, convenience: 60
     },
   },
   FR: {
     "Lion": {
       taste: 90, health: 45, filling: 60, packaging: 80, kids: 70,
-      ingredients: 60, family: 70, variety: 80, convinience: 80
+      ingredients: 60, family: 70, variety: 80, convenience: 80
     },
     "Tresor": {
       taste: 95, health: 25, filling: 70, packaging: 75, kids: 82,
-      ingredients: 65, family: 85, variety: 70, convinience: 85
+      ingredients: 65, family: 85, variety: 70, convenience: 85
     },
   },
 };
@@ -191,21 +191,22 @@ export const CerealComparison: React.FC<CerealComparisonProps> = ({ country }) =
           <div className="h-96">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={getComparisonData()}>
-                <PolarGrid stroke="hsl(var(--border))" />
+                <PolarGrid stroke="#aeaeae" strokeWidth={2} />
                 <PolarAngleAxis
                   dataKey="metric"
                   tick={{
                     fill: 'hsl(var(--foreground))',
-                    fontSize: 12,
-                    fontWeight: 500
+                    fontSize: 14,
+                    fontWeight: 400,
                   }}
                 />
                 <PolarRadiusAxis
                   angle={90}
                   domain={[0, 100]}
                   tick={{
-                    fill: 'hsl(var(--muted-foreground))',
-                    fontSize: 10
+                    fill: 'black',
+                    fontSize: 10,
+                    fontWeight:500
                   }}
                 />
                 <Radar

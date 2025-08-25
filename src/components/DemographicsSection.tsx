@@ -52,7 +52,7 @@ export const DemographicsSection = ({ country }: DemographicsSectionProps) => {
 
   const demographicsInsight = {
     title: "Demographics Insights",
-    content: `${country} shows a strong representation in the 25-34 age group, making up the largest consumer segment. Gender distribution remains relatively balanced with slight female preference for cereal products.`,
+    content: `${country} shows a strong representation in the 30-39 age group, making up the largest consumer segment. Gender distribution remains inclined towards female preference for cereal products.`,
     metrics: [
       `Peak Age Group: ${countryAgeData.reduce((max, curr) => curr.population > max.population ? curr : max, countryAgeData[0]).age}`,
       `Female Preference: +${countryGenderData.find(g => g.gender === 'Female')?.value}%`,
@@ -65,7 +65,7 @@ export const DemographicsSection = ({ country }: DemographicsSectionProps) => {
       {/* Age Distribution Chart */}
       <Card className="card-analytics col-span-1 lg:col-span-1">
         <CardHeader>
-          <CardTitle className="text-chart-1">Age Distribution</CardTitle>
+          <CardTitle className="text-chart-1">Age Group Distribution</CardTitle>
           <CardDescription>Consumer age demographics in {country}</CardDescription>
         </CardHeader>
         <CardContent>

@@ -7,11 +7,7 @@ const elbowData = {
     { k: 1, wcss: 1500 },
     { k: 2, wcss: 800 },
     { k: 3, wcss: 450 },
-    { k: 4, wcss: 320 },
-    { k: 5, wcss: 280 },
-    { k: 6, wcss: 260 },
-    { k: 7, wcss: 250 },
-    { k: 8, wcss: 245 }
+    { k: 4, wcss: 320 }
   ],
   AU: [
     { k: 1, wcss: 1400 },
@@ -19,29 +15,13 @@ const elbowData = {
     { k: 3, wcss: 420 },
     { k: 4, wcss: 300 },
     { k: 5, wcss: 270 },
-    { k: 6, wcss: 255 },
-    { k: 7, wcss: 248 },
-    { k: 8, wcss: 244 }
-  ],
-  PL: [
-    { k: 1, wcss: 1200 },
-    { k: 2, wcss: 680 },
-    { k: 3, wcss: 390 },
-    { k: 4, wcss: 280 },
-    { k: 5, wcss: 250 },
-    { k: 6, wcss: 235 },
-    { k: 7, wcss: 228 },
-    { k: 8, wcss: 225 }
+    { k: 6, wcss: 255 }
   ],
   FR: [
     { k: 1, wcss: 1350 },
     { k: 2, wcss: 720 },
     { k: 3, wcss: 410 },
-    { k: 4, wcss: 295 },
-    { k: 5, wcss: 265 },
-    { k: 6, vcss: 248 },
-    { k: 7, wcss: 240 },
-    { k: 8, wcss: 237 }
+    { k: 4, wcss: 295 }
   ]
 };
 
@@ -49,101 +29,85 @@ const silhouetteData = {
   UK: [
     { k: 2, score: 0.65 },
     { k: 3, score: 0.78 },
-    { k: 4, score: 0.82 },
-    { k: 5, score: 0.75 },
-    { k: 6, score: 0.68 },
-    { k: 7, score: 0.62 },
-    { k: 8, score: 0.58 }
+    { k: 4, score: 0.82 }
   ],
   AU: [
-    { k: 2, score: 0.62 },
-    { k: 3, score: 0.75 },
     { k: 4, score: 0.80 },
     { k: 5, score: 0.73 },
-    { k: 6, score: 0.66 },
-    { k: 7, score: 0.60 },
-    { k: 8, score: 0.56 }
-  ],
-  PL: [
-    { k: 2, score: 0.68 },
-    { k: 3, score: 0.79 },
-    { k: 4, score: 0.84 },
-    { k: 5, score: 0.77 },
-    { k: 6, score: 0.70 },
-    { k: 7, score: 0.64 },
-    { k: 8, score: 0.59 }
+    { k: 6, score: 0.66 }
   ],
   FR: [
     { k: 2, score: 0.64 },
     { k: 3, score: 0.76 },
-    { k: 4, score: 0.81 },
-    { k: 5, score: 0.74 },
-    { k: 6, score: 0.67 },
-    { k: 7, score: 0.61 },
-    { k: 8, score: 0.57 }
+    { k: 4, score: 0.81 }
   ]
 };
+function generateClusterPoints(pointsCount: number, clustersCount: number) {
+  const data = [];
+  const pointsPerCluster = Math.floor(pointsCount / clustersCount);
+
+  for (let cluster = 0; cluster < clustersCount; cluster++) {
+    const centerX = 2 + Math.random() * 7;
+    const centerY = 2 + Math.random() * 7;
+
+    for (let i = 0; i < pointsPerCluster; i++) {
+      const x = +(centerX + (Math.random() - 0.5) * 0.8).toFixed(2);
+      const y = +(centerY + (Math.random() - 0.5) * 0.8).toFixed(2);
+      data.push({ x, y, cluster });
+    }
+  }
+
+  while (data.length < pointsCount) {
+    const x = +(2 + Math.random() * 7).toFixed(2);
+    const y = +(2 + Math.random() * 7).toFixed(2);
+    data.push({ x, y, cluster: 0 });
+  }
+
+  return data;
+}
 
 const clusterData = {
-  UK: [
-    { x: 2.3, y: 4.1, cluster: 0 },
-    { x: 2.8, y: 4.5, cluster: 0 },
-    { x: 3.1, y: 3.9, cluster: 0 },
-    { x: 5.2, y: 6.8, cluster: 1 },
-    { x: 5.8, y: 7.2, cluster: 1 },
-    { x: 6.1, y: 6.5, cluster: 1 },
-    { x: 8.5, y: 2.1, cluster: 2 },
-    { x: 8.9, y: 2.8, cluster: 2 },
-    { x: 9.2, y: 2.4, cluster: 2 },
-    { x: 4.2, y: 8.9, cluster: 3 },
-    { x: 4.8, y: 9.5, cluster: 3 },
-    { x: 5.1, y: 8.7, cluster: 3 }
-  ],
-  AU: [
-    { x: 2.1, y: 4.3, cluster: 0 },
-    { x: 2.9, y: 4.8, cluster: 0 },
-    { x: 3.3, y: 4.1, cluster: 0 },
-    { x: 5.4, y: 6.9, cluster: 1 },
-    { x: 5.9, y: 7.4, cluster: 1 },
-    { x: 6.3, y: 6.7, cluster: 1 },
-    { x: 8.2, y: 2.3, cluster: 2 },
-    { x: 8.7, y: 2.9, cluster: 2 },
-    { x: 9.1, y: 2.6, cluster: 2 },
-    { x: 4.1, y: 9.1, cluster: 3 },
-    { x: 4.7, y: 9.6, cluster: 3 },
-    { x: 5.2, y: 8.9, cluster: 3 }
-  ],
-  PL: [
-    { x: 2.5, y: 4.2, cluster: 0 },
-    { x: 3.0, y: 4.6, cluster: 0 },
-    { x: 3.4, y: 4.0, cluster: 0 },
-    { x: 5.1, y: 6.7, cluster: 1 },
-    { x: 5.7, y: 7.1, cluster: 1 },
-    { x: 6.0, y: 6.4, cluster: 1 },
-    { x: 8.3, y: 2.2, cluster: 2 },
-    { x: 8.8, y: 2.7, cluster: 2 },
-    { x: 9.0, y: 2.5, cluster: 2 },
-    { x: 4.3, y: 8.8, cluster: 3 },
-    { x: 4.9, y: 9.3, cluster: 3 },
-    { x: 5.3, y: 8.6, cluster: 3 }
-  ],
-  FR: [
-    { x: 2.2, y: 4.4, cluster: 0 },
-    { x: 2.7, y: 4.7, cluster: 0 },
-    { x: 3.2, y: 4.2, cluster: 0 },
-    { x: 5.3, y: 6.6, cluster: 1 },
-    { x: 5.6, y: 7.0, cluster: 1 },
-    { x: 6.2, y: 6.8, cluster: 1 },
-    { x: 8.4, y: 2.0, cluster: 2 },
-    { x: 8.6, y: 2.6, cluster: 2 },
-    { x: 9.3, y: 2.3, cluster: 2 },
-    { x: 4.0, y: 9.0, cluster: 3 },
-    { x: 4.6, y: 9.4, cluster: 3 },
-    { x: 5.0, y: 8.8, cluster: 3 }
-  ]
+  UK: generateClusterPoints(88, 3),
+  AU: generateClusterPoints(98, 5),
+  FR: generateClusterPoints(80, 3)
 };
 
-const CLUSTER_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
+const CLUSTER_COLORS = [
+  '#1f77b4',
+  '#ff7f0e', 
+  '#2ca02c', 
+  '#d62728', 
+  '#9467bd'
+];
+const mlInsights = {
+  UK: {
+    title: "Machine Learning Insights - UK",
+    content: "Three segments: health-focused, taste-driven, and low-engagement. Actionable groups are health and taste; the third can be deprioritized.",
+    metrics: [
+      "Clusters: 3",
+      "Focus: Health, Taste"
+    ]
+  },
+
+  AU: {
+    title: "Machine Learning Insights - Australia",
+    content: "Five segments found. Dominant themes are texture sensitivity, flavour preference, and convenience. Smaller groups focus on health and family needs.",
+    metrics: [
+      "Clusters: 5",
+      "Focus: Texture, Convenience"
+    ]
+  },
+
+  FR: {
+    title: "Machine Learning Insights - France",
+    content: "Three segments: Trésor loyalists, brand switchers, and low-engagement buyers. Loyalty and variety are key drivers.",
+    metrics: [
+      "Clusters: 3",
+      "Focus: Loyalty, Variety"
+    ]
+  }
+};
+
 
 interface MLAnalysisSectionProps {
   country: string;
@@ -154,18 +118,8 @@ export const MLAnalysisSection = ({ country }: MLAnalysisSectionProps) => {
   const countrySilhouetteData = silhouetteData[country as keyof typeof silhouetteData] || silhouetteData.UK;
   const countryClusterData = clusterData[country as keyof typeof clusterData] || clusterData.UK;
 
-  const optimalK = countrySilhouetteData.reduce((max, curr) => curr.score > max.score ? curr : max, countrySilhouetteData[0]);
+  const mlInsight = mlInsights[country as keyof typeof mlInsights] || mlInsights.UK;
 
-  const mlInsight = {
-    title: "Machine Learning Insights",
-    content: `Advanced clustering analysis reveals ${optimalK.k} distinct consumer segments in ${country}. The model shows strong cluster separation with high silhouette scores, indicating well-defined consumer preferences.`,
-    metrics: [
-      `Optimal Clusters: ${optimalK.k}`,
-      `Best Silhouette Score: ${optimalK.score.toFixed(3)}`,
-      `Model Accuracy: ${(optimalK.score * 100).toFixed(1)}%`,
-      `Segments Identified: Premium, Budget, Health-focused, Family`
-    ]
-  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">

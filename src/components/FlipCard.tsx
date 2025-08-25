@@ -49,7 +49,7 @@ export const FlipCard = ({ insight }: FlipCardProps) => {
             <Card className="card-analytics h-full">
               <CardHeader>
                 <CardTitle className="text-lg">{insight.title}</CardTitle>
-                <CardDescription className="text-sm leading-relaxed">
+                <CardDescription className="text-lg leading-relaxed">
                   {insight.content}
                 </CardDescription>
               </CardHeader>

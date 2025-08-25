@@ -8,12 +8,12 @@ const wordFrequencyData = {
     UK: {
       positive: [
         { word: 'chocolate', count: 12 },
-        { word: 'desert like', count: 9 },
-        { word: 'kids like it', count: 8 },
-        { word: 'good branding', count: 7 },
+        { word: 'dessert', count: 9 },
+        { word: 'kids appeal', count: 8 },
+        { word: 'branding', count: 7 },
       ],
       negative: [
-        { word: 'like of fiber', count: 7},
+        { word: 'lack of fibre', count: 7},
         { word: 'not filling', count: 8 },
         { word: 'high sugar', count: 13 }
       ]
@@ -126,8 +126,7 @@ const cerealInsight = {
   metrics: [
     `Sentiment Score: ${sentimentScore}%`,
     `Total Positive: ${totalPositive.toLocaleString()}`,
-    `Total Negative: ${totalNegative.toLocaleString()}`,
-    `Growth Trend: ${growthTrend}%`
+    `Total Negative: ${totalNegative.toLocaleString()}`
   ]
 };
 
